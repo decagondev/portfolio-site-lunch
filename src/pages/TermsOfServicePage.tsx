@@ -1,4 +1,5 @@
 import { SEO } from "@/components/seo/SEO"
+import { appConfig } from "@/config/app.config"
 
 /**
  * Terms of Service page - templatable content
@@ -7,8 +8,9 @@ export function TermsOfServicePage() {
   return (
     <>
       <SEO
-        title="Terms of Service - React TypeScript Vite Starter"
-        description="Terms of Service for this application"
+        title={`Terms of Service - ${appConfig.name}`}
+        description={`Terms of Service for ${appConfig.name}. Please read these terms carefully before using our services.`}
+        keywords="terms of service, terms and conditions, legal"
       />
       <div className="container mx-auto px-4 py-16">
         <div className="mx-auto max-w-3xl">
