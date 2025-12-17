@@ -26,12 +26,12 @@ export interface FooterConfig {
 
 export const appConfig = {
   // Branding
-  name: "Your Application",
-  tagline: "A modern portfolio website",
-  bio: "A passionate developer building modern web applications with React, TypeScript, and cutting-edge technologies.",
-  companyName: "Your Company",
+  name: "Tom Tarpey",
+  tagline: "Principal AI Engineer | Security & Database Analyst | Infrastructure & Software Architect | CS Consultant",
+  bio: "Principal AI Engineer with extensive experience in LLM fine-tuning, agentic workflows, and AI/ML infrastructure. Specializing in RAG systems, quantization, and security-focused LLM deployments. Teaching AI for Developer Productivity and leading engineering teams across EdTech and enterprise platforms.",
+  companyName: "Tom Tarpey",
   description:
-    "A modern starter template for React applications with TypeScript, Vite, ShadCN UI, and Tailwind CSS 4",
+    "Portfolio of Tom Tarpey - Principal AI Engineer specializing in Large Language Models, AI/ML infrastructure, and full-stack development. Expert in LLM fine-tuning, RAG systems, and agentic workflows.",
   baseUrl: import.meta.env.VITE_BASE_URL || "https://yourdomain.com",
 
   // Navigation
@@ -45,15 +45,14 @@ export const appConfig = {
 
   // Social Links
   socialLinks: {
-    github: "https://github.com/yourusername",
-    linkedin: "https://linkedin.com/in/yourusername",
-    twitter: "https://twitter.com/yourusername",
-    email: "mailto:your.email@example.com",
+    github: "https://github.com/decagondev",
+    linkedin: "https://linkedin.com/in/tom-tarpey-38594455",
+    email: "mailto:tomtarpeydev@gmail.com",
   } as const satisfies SocialLinks,
 
   // Footer
   footer: {
-    companyName: "Your Company",
+    companyName: "Tom Tarpey",
     year: new Date().getFullYear(),
     links: [
       { label: "Home", path: "/" },

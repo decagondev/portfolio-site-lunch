@@ -44,7 +44,7 @@ export function ExperienceTimeline({
                 {/* Timeline dot */}
                 <div className="absolute left-2 top-2 h-4 w-4 rounded-full border-2 border-background bg-primary md:left-6" />
 
-                <div className="rounded-lg border bg-card p-6 shadow-sm">
+                <div className="rounded-lg border bg-card p-6 shadow-sm transition-all duration-200 hover:shadow-md hover:border-primary/20">
                   <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                       <h3 className="text-xl font-semibold">{exp.role}</h3>
@@ -64,7 +64,7 @@ export function ExperienceTimeline({
                         {exp.tech.map((tech) => (
                           <span
                             key={tech}
-                            className="rounded-md bg-muted px-2 py-1 text-xs"
+                            className="rounded-md bg-muted px-2 py-1 text-xs transition-colors hover:bg-accent/20 hover:text-accent"
                           >
                             {tech}
                           </span>

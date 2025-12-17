@@ -64,7 +64,7 @@ export function ProjectDetailModal({
               {project.tech.map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-md bg-muted px-3 py-1 text-sm font-medium"
+                  className="rounded-md bg-muted px-3 py-1 text-sm font-medium transition-colors hover:bg-accent/20 hover:text-accent"
                 >
                   {tech}
                 </span>

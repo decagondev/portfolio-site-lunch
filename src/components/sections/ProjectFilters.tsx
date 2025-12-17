@@ -38,8 +38,8 @@ export function ProjectFilters({
               size="sm"
               onClick={() => onToggleFilter(filter)}
               className={cn(
-                "transition-all",
-                isSelected && "shadow-sm"
+                "transition-all duration-200",
+                isSelected && "shadow-sm ring-2 ring-primary/20"
               )}
             >
               {filter}

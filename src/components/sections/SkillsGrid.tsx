@@ -32,13 +32,13 @@ export function SkillsGrid({ skills, className }: SkillsGridProps) {
   const getLevelColor = (level: Skill["level"]) => {
     switch (level) {
       case "advanced":
-        return "bg-green-500/20 text-green-600 dark:text-green-400"
+        return "bg-primary/20 text-primary border border-primary/30 hover:bg-primary/30 transition-colors"
       case "intermediate":
-        return "bg-blue-500/20 text-blue-600 dark:text-blue-400"
+        return "bg-accent/20 text-accent border border-accent/30 hover:bg-accent/30 transition-colors"
       case "beginner":
-        return "bg-gray-500/20 text-gray-600 dark:text-gray-400"
+        return "bg-muted text-muted-foreground border border-border hover:bg-muted/80 transition-colors"
       default:
-        return "bg-gray-500/20 text-gray-600 dark:text-gray-400"
+        return "bg-muted text-muted-foreground border border-border hover:bg-muted/80 transition-colors"
     }
   }
 
@@ -73,7 +73,7 @@ export function SkillsGrid({ skills, className }: SkillsGridProps) {
                   >
                     <div
                       className={cn(
-                        "rounded-full px-4 py-2 text-sm font-medium",
+                        "rounded-full px-4 py-2 text-sm font-medium transition-all duration-200",
                         getLevelColor(skill.level)
                       )}
                     >

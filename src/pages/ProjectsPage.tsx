@@ -39,8 +39,8 @@ export function ProjectsPage() {
     <>
       <SEO
         title={`Projects - ${appConfig.name}`}
-        description={`Explore my portfolio of projects. Built with modern technologies including React, TypeScript, and more.`}
-        keywords="projects, portfolio, web development, React, TypeScript, case studies"
+        description={`Explore my portfolio of AI/ML projects including LLM fine-tuning, agentic workflows, RAG systems, and full-stack applications.`}
+        keywords="projects, portfolio, AI projects, LLM projects, machine learning, agentic workflows, RAG, QLoRA, case studies"
       />
       <div className="container mx-auto px-4 py-16">
         <div className="mx-auto max-w-6xl">

@@ -74,7 +74,7 @@ export function TestimonialCarousel({
 
         <div className="relative">
           {/* Carousel Container */}
-          <div className="relative overflow-hidden rounded-lg border bg-card p-8 shadow-sm">
+          <div className="relative overflow-hidden rounded-lg border bg-card p-8 shadow-sm transition-all duration-200 hover:shadow-md">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={currentIndex}
@@ -140,11 +140,17 @@ export function TestimonialCarousel({
                 <button
                   key={index}
                   onClick={() => goToIndex(index)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault()
+                      goToIndex(index)
+                    }
+                  }}
                   className={cn(
-                    "h-2 rounded-full transition-all",
+                    "h-2 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                     index === currentIndex
                       ? "w-8 bg-primary"
-                      : "w-2 bg-muted hover:bg-muted-foreground"
+                      : "w-2 bg-muted hover:bg-primary/50"
                   )}
                   aria-label={`Go to testimonial ${index + 1}`}
                   aria-current={index === currentIndex ? "true" : "false"}

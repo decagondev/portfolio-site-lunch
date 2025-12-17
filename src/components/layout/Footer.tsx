@@ -54,7 +54,7 @@ export function Footer({
                   <li key={link.path}>
                     <Link
                       to={link.path}
-                      className="text-muted-foreground hover:text-foreground transition-colors"
+                      className="text-muted-foreground hover:text-primary transition-colors duration-200"
                     >
                       {link.label}
                     </Link>
@@ -95,8 +95,14 @@ export function Footer({
           <div className="space-y-2">
             <h4 className="font-semibold">Contact</h4>
             <p className="text-sm text-muted-foreground">
-              Get in touch with us
+              Ready to collaborate? Let's connect and build something amazing together.
             </p>
+            <a
+              href="/contact"
+              className="text-sm text-primary hover:text-accent transition-colors duration-200 hover:underline inline-flex items-center gap-1"
+            >
+              Get in touch →
+            </a>
           </div>
         </div>
       </div>

@@ -14,7 +14,7 @@ export function LandingPage() {
       <SEO
         title={`${appConfig.name} - ${appConfig.tagline}`}
         description={appConfig.description}
-        keywords="portfolio, developer, web development, React, TypeScript"
+        keywords="AI engineer, LLM, machine learning, principal engineer, AI consultant, LLM fine-tuning, RAG, agentic workflows, full-stack developer, React, TypeScript"
       />
       <HeroSection
         title={appConfig.name}
@@ -22,7 +22,7 @@ export function LandingPage() {
         description={appConfig.bio}
         ctaText="View My Work"
         ctaLink="/projects"
-        image="/hero-image.png"
+        image="/hero-image.jpg"
       />
       <FeaturedProjects projects={projects} maxItems={3} />
     </>

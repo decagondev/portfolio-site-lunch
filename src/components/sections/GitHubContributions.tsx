@@ -66,7 +66,7 @@ export function GitHubContributions({
       >
         <h2 className="mb-8 text-3xl font-bold">GitHub Contributions</h2>
 
-        <div className="rounded-lg border bg-card p-6 shadow-sm">
+        <div className="rounded-lg border bg-card p-6 shadow-sm transition-all duration-200 hover:shadow-md">
           {isLoading ? (
             <div className="flex items-center justify-center py-12">
               <p className="text-muted-foreground">Loading contributions...</p>
@@ -98,7 +98,7 @@ export function GitHubContributions({
             href={`https://github.com/${gitHubUsername}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary hover:underline"
+            className="text-primary hover:text-accent transition-colors duration-200 hover:underline"
           >
             GitHub
           </a>

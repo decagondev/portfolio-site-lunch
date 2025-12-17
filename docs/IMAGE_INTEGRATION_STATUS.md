@@ -27,10 +27,10 @@ This document tracks the status of image integration after adding images to the 
   - **Path**: `/jane-smith.png`
 
 ### 3. Hero Image
-- ✅ **Hero Image** (`/hero-image.png`)
+- ✅ **Hero Image** (`/hero-image.jpg`)
   - **Status**: Connected
   - **Location**: `src/pages/LandingPage.tsx`
-  - **Path**: `/hero-image.png`
+  - **Path**: `/hero-image.jpg`
   - **Usage**: Passed to `HeroSection` component as `image` prop
 
 ### 4. OG Image
@@ -71,7 +71,7 @@ This document tracks the status of image integration after adding images to the 
 
 Based on the public folder listing:
 - `og-image.png`: ~2.6MB ⚠️ **Large - should optimize**
-- `hero-image.png`: ~2.2MB ⚠️ **Large - should optimize**
+- `hero-image.jpg`: ~2.2MB ⚠️ **Large - should optimize**
 - `portfolio-website.png`: ~1.7MB ⚠️ **Large - should optimize**
 - `ecommerce-platform.png`: ~1.4MB ⚠️ **Large - should optimize**
 - `john-doe.png`: ~1.5MB ⚠️ **Large - should optimize**
@@ -91,7 +91,7 @@ Based on the public folder listing:
    - Left `avatar: undefined` for testimonial-3 (mike-johnson.png missing)
 
 3. **`src/pages/LandingPage.tsx`**
-   - Added `image="/hero-image.png"` prop to `HeroSection` component
+   - Added `image="/hero-image.jpg"` prop to `HeroSection` component
 
 4. **`index.html`**
    - Added `<link rel="icon" type="image/x-icon" href="/favicon.ico">` for better browser compatibility
@@ -124,7 +124,7 @@ Based on the public folder listing:
 ## Image Optimization Checklist
 
 - [ ] Optimize `og-image.png` (currently ~2.6MB)
-- [ ] Optimize `hero-image.png` (currently ~2.2MB)
+- [ ] Optimize `hero-image.jpg` (currently ~2.2MB)
 - [ ] Optimize `portfolio-website.png` (currently ~1.7MB)
 - [ ] Optimize `ecommerce-platform.png` (currently ~1.4MB)
 - [ ] Optimize `john-doe.png` (currently ~1.5MB)

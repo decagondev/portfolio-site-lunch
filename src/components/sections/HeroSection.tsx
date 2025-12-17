@@ -64,7 +64,7 @@ export function HeroSection({
               <img
                 src={image}
                 alt={title}
-                className="rounded-lg shadow-lg"
+                className="rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl"
                 loading="eager"
               />
             </motion.div>

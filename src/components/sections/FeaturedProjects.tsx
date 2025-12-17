@@ -48,7 +48,7 @@ export function FeaturedProjects({
               viewport={{ once: true }}
               transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: index * 0.1 }}
               whileHover={prefersReducedMotion ? {} : { y: -4 }}
-              className="group rounded-lg border bg-card shadow-sm transition-shadow hover:shadow-md"
+              className="group rounded-lg border bg-card shadow-sm transition-all duration-200 hover:shadow-lg hover:border-primary/30"
             >
               {project.image && (
                 <div className="aspect-video overflow-hidden rounded-t-lg">
@@ -69,7 +69,7 @@ export function FeaturedProjects({
                   {project.tech.slice(0, 3).map((tech) => (
                     <span
                       key={tech}
-                      className="rounded-md bg-muted px-2 py-1 text-xs"
+                      className="rounded-md bg-muted px-2 py-1 text-xs transition-colors hover:bg-accent/20 hover:text-accent"
                     >
                       {tech}
                     </span>

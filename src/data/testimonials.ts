@@ -38,7 +38,7 @@ export const testimonials: readonly Testimonial[] = [
     company: "Innovation Labs",
     content:
       "Outstanding technical skills combined with great communication. They helped us solve complex problems and delivered high-quality solutions. I would definitely work with them again.",
-    avatar: 'mike-johnson.jpg', // mike-johnson.png not found in public folder
+    avatar: "/mike-johnson.jpg",
   },
 ] as const
 

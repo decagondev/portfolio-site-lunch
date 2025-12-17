@@ -51,9 +51,9 @@ export function Navbar() {
               key={item.path}
               to={item.path}
               className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
+                "text-sm font-medium transition-colors duration-200 hover:text-primary relative",
                 location.pathname === item.path
-                  ? "text-foreground"
+                  ? "text-primary"
                   : "text-muted-foreground"
               )}
             >
@@ -96,10 +96,10 @@ export function Navbar() {
                   to={item.path}
                   onClick={closeMobileMenu}
                   className={cn(
-                    "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                    "rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200",
                     location.pathname === item.path
-                      ? "bg-accent text-accent-foreground"
-                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                      ? "bg-primary/20 text-primary"
+                      : "text-muted-foreground hover:bg-accent/20 hover:text-accent"
                   )}
                 >
                   {item.label}

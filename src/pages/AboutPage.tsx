@@ -18,7 +18,7 @@ export function AboutPage() {
       <SEO
         title={`About - ${appConfig.name}`}
         description={`Learn more about ${appConfig.name}. ${appConfig.bio}`}
-        keywords="about, developer, experience, skills, portfolio"
+        keywords="about, AI engineer, principal engineer, LLM expert, machine learning, experience, skills, portfolio"
       />
       <div className="container mx-auto px-4 py-16">
         <div className="mx-auto max-w-4xl">

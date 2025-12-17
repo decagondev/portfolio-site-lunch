@@ -25,7 +25,7 @@ export function ProjectCard({ project, onClick, className }: ProjectCardProps) {
       whileHover={prefersReducedMotion ? {} : { y: -4 }}
       onClick={onClick}
       className={cn(
-        "group cursor-pointer rounded-lg border bg-card shadow-sm transition-shadow hover:shadow-md",
+        "group cursor-pointer rounded-lg border bg-card shadow-sm transition-all duration-200 hover:shadow-lg hover:border-primary/30",
         className
       )}
     >
@@ -48,7 +48,7 @@ export function ProjectCard({ project, onClick, className }: ProjectCardProps) {
           {project.tech.slice(0, 4).map((tech) => (
             <span
               key={tech}
-              className="rounded-md bg-muted px-2 py-1 text-xs font-medium"
+              className="rounded-md bg-muted px-2 py-1 text-xs font-medium transition-colors hover:bg-accent/20 hover:text-accent"
             >
               {tech}
             </span>
@@ -66,7 +66,7 @@ export function ProjectCard({ project, onClick, className }: ProjectCardProps) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="text-sm font-medium text-primary hover:underline"
+              className="text-sm font-medium text-primary hover:text-accent transition-colors duration-200 hover:underline"
             >
               Live Demo →
             </a>
@@ -77,7 +77,7 @@ export function ProjectCard({ project, onClick, className }: ProjectCardProps) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="text-sm font-medium text-primary hover:underline"
+              className="text-sm font-medium text-primary hover:text-accent transition-colors duration-200 hover:underline"
             >
               GitHub →
             </a>
