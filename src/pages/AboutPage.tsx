@@ -1,7 +1,8 @@
 import { SEO } from "@/components/seo/SEO"
 import { SkillsGrid } from "@/components/sections/SkillsGrid"
 import { ExperienceTimeline } from "@/components/sections/ExperienceTimeline"
-import { TestimonialsTeaser } from "@/components/sections/TestimonialsTeaser"
+import { TestimonialCarousel } from "@/components/sections/TestimonialCarousel"
+import { GitHubContributions } from "@/components/sections/GitHubContributions"
 import { skills } from "@/data/skills"
 import { experience } from "@/data/experience"
 import { testimonials } from "@/data/testimonials"
@@ -31,7 +32,8 @@ export function AboutPage() {
 
       <SkillsGrid skills={skills} />
       <ExperienceTimeline experience={experience} />
-      <TestimonialsTeaser testimonials={testimonials} maxItems={2} />
+      <GitHubContributions />
+      <TestimonialCarousel testimonials={testimonials} />
     </>
   )
 }
