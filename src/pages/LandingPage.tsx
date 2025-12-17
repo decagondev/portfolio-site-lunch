@@ -22,6 +22,7 @@ export function LandingPage() {
         description={appConfig.bio}
         ctaText="View My Work"
         ctaLink="/projects"
+        image="/hero-image.png"
       />
       <FeaturedProjects projects={projects} maxItems={3} />
     </>
