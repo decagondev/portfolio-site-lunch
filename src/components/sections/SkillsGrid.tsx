@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
 import { type Skill } from "@/data/skills"
 import { cn } from "@/lib/utils"
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion"
 
 export interface SkillsGridProps {
   skills: readonly Skill[]
@@ -12,6 +13,8 @@ export interface SkillsGridProps {
  * Follows Single Responsibility Principle - only handles skills display
  */
 export function SkillsGrid({ skills, className }: SkillsGridProps) {
+  const prefersReducedMotion = useReducedMotion()
+  
   // Group skills by category
   const skillsByCategory = skills.reduce(
     (acc, skill) => {
@@ -42,31 +45,31 @@ export function SkillsGrid({ skills, className }: SkillsGridProps) {
   return (
     <section className={cn("container mx-auto px-4 py-12", className)}>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={prefersReducedMotion ? undefined : { opacity: 0, y: 20 }}
+        whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6 }}
       >
         <h2 className="mb-8 text-3xl font-bold">Skills</h2>
         <div className="space-y-8">
           {categories.map((category, categoryIndex) => (
             <motion.div
               key={category}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={prefersReducedMotion ? undefined : { opacity: 0, y: 20 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: categoryIndex * 0.1 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4, delay: categoryIndex * 0.1 }}
             >
               <h3 className="mb-4 text-xl font-semibold">{category}</h3>
               <div className="flex flex-wrap gap-3">
                 {skillsByCategory[category].map((skill, index) => (
                   <motion.div
                     key={skill.id}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
+                    initial={prefersReducedMotion ? undefined : { opacity: 0, scale: 0.8 }}
+                    whileInView={prefersReducedMotion ? undefined : { opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    whileHover={{ scale: 1.05 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3, delay: index * 0.05 }}
+                    whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
                   >
                     <div
                       className={cn(

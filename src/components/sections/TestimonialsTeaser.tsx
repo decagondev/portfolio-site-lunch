@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
 import { type Testimonial } from "@/data/testimonials"
 import { cn } from "@/lib/utils"
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion"
 
 export interface TestimonialsTeaserProps {
   testimonials: readonly Testimonial[]
@@ -17,25 +18,26 @@ export function TestimonialsTeaser({
   maxItems = 2,
   className,
 }: TestimonialsTeaserProps) {
+  const prefersReducedMotion = useReducedMotion()
   const displayedTestimonials = testimonials.slice(0, maxItems)
 
   return (
     <section className={cn("container mx-auto px-4 py-12", className)}>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={prefersReducedMotion ? undefined : { opacity: 0, y: 20 }}
+        whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6 }}
       >
         <h2 className="mb-8 text-3xl font-bold">Testimonials</h2>
         <div className="grid gap-6 md:grid-cols-2">
           {displayedTestimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={prefersReducedMotion ? undefined : { opacity: 0, y: 20 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: index * 0.1 }}
               className="rounded-lg border bg-card p-6 shadow-sm"
             >
               <p className="mb-4 italic text-muted-foreground">
@@ -45,8 +47,9 @@ export function TestimonialsTeaser({
                 {testimonial.avatar && (
                   <img
                     src={testimonial.avatar}
-                    alt={testimonial.author}
+                    alt={`${testimonial.author} - ${testimonial.role}`}
                     className="h-12 w-12 rounded-full"
+                    loading="lazy"
                   />
                 )}
                 <div>

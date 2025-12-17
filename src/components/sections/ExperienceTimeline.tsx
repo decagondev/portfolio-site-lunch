@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
 import { type Experience } from "@/data/experience"
 import { cn } from "@/lib/utils"
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion"
 
 export interface ExperienceTimelineProps {
   experience: readonly Experience[]
@@ -15,13 +16,15 @@ export function ExperienceTimeline({
   experience,
   className,
 }: ExperienceTimelineProps) {
+  const prefersReducedMotion = useReducedMotion()
+
   return (
     <section className={cn("container mx-auto px-4 py-12", className)}>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={prefersReducedMotion ? undefined : { opacity: 0, y: 20 }}
+        whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6 }}
       >
         <h2 className="mb-8 text-3xl font-bold">Experience</h2>
         <div className="relative">
@@ -32,10 +35,10 @@ export function ExperienceTimeline({
             {experience.map((exp, index) => (
               <motion.div
                 key={exp.id}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={prefersReducedMotion ? undefined : { opacity: 0, x: -20 }}
+                whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: index * 0.1 }}
                 className="relative pl-12 md:pl-16"
               >
                 {/* Timeline dot */}
