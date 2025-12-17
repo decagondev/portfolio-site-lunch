@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Github, X } from "lucide-react"
+import { ExternalLink, Github } from "lucide-react"
 
 export interface ProjectDetailModalProps {
   project: Project | null
