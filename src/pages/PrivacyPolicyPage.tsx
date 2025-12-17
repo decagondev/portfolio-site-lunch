@@ -1,4 +1,5 @@
 import { SEO } from "@/components/seo/SEO"
+import { appConfig } from "@/config/app.config"
 
 /**
  * Privacy Policy page - templatable content
@@ -7,8 +8,9 @@ export function PrivacyPolicyPage() {
   return (
     <>
       <SEO
-        title="Privacy Policy - React TypeScript Vite Starter"
-        description="Privacy Policy for this application"
+        title={`Privacy Policy - ${appConfig.name}`}
+        description={`Privacy Policy for ${appConfig.name}. Learn how we collect, use, and protect your information.`}
+        keywords="privacy policy, data protection, privacy"
       />
       <div className="container mx-auto px-4 py-16">
         <div className="mx-auto max-w-3xl">
