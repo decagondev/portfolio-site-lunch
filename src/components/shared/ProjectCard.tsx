@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
 import { type Project } from "@/data/projects"
 import { cn } from "@/lib/utils"
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion"
 
 export interface ProjectCardProps {
   project: Project
@@ -13,13 +14,15 @@ export interface ProjectCardProps {
  * Follows Single Responsibility Principle - only handles project card display
  */
 export function ProjectCard({ project, onClick, className }: ProjectCardProps) {
+  const prefersReducedMotion = useReducedMotion()
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={prefersReducedMotion ? undefined : { opacity: 0, y: 20 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-      whileHover={{ y: -4 }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
+      whileHover={prefersReducedMotion ? {} : { y: -4 }}
       onClick={onClick}
       className={cn(
         "group cursor-pointer rounded-lg border bg-card shadow-sm transition-shadow hover:shadow-md",

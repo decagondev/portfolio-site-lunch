@@ -42,8 +42,9 @@ export function ProjectDetailModal({
             <div className="overflow-hidden rounded-lg">
               <img
                 src={project.image}
-                alt={project.title}
+                alt={`${project.title} - Project screenshot`}
                 className="h-auto w-full object-cover"
+                loading="lazy"
               />
             </div>
           )}

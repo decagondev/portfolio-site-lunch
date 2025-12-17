@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -17,6 +18,7 @@ import {
 } from "@/lib/validations/contact.schema"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion"
 
 export interface ContactFormProps {
   onSubmit?: (data: ContactFormData) => Promise<void> | void
@@ -28,6 +30,7 @@ export interface ContactFormProps {
  * Follows Single Responsibility Principle - only handles form display and submission
  */
 export function ContactForm({ onSubmit, className }: ContactFormProps) {
+  const prefersReducedMotion = useReducedMotion()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
@@ -67,7 +70,12 @@ export function ContactForm({ onSubmit, className }: ContactFormProps) {
   }
 
   return (
-    <div className={cn("w-full max-w-2xl", className)}>
+    <motion.div
+      initial={prefersReducedMotion ? undefined : { opacity: 0, y: 20 }}
+      animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6 }}
+      className={cn("w-full max-w-2xl", className)}
+    >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
           <FormField
@@ -134,24 +142,38 @@ export function ContactForm({ onSubmit, className }: ContactFormProps) {
             )}
           />
 
-          {submitStatus === "success" && (
-            <div className="rounded-md bg-green-500/10 p-4 text-sm text-green-600 dark:text-green-400">
-              Thank you! Your message has been sent successfully.
-            </div>
-          )}
+          <AnimatePresence mode="wait">
+            {submitStatus === "success" && (
+              <motion.div
+                initial={prefersReducedMotion ? undefined : { opacity: 0, y: -10 }}
+                animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                exit={prefersReducedMotion ? undefined : { opacity: 0, y: -10 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
+                className="rounded-md bg-green-500/10 p-4 text-sm text-green-600 dark:text-green-400"
+              >
+                Thank you! Your message has been sent successfully.
+              </motion.div>
+            )}
 
-          {submitStatus === "error" && (
-            <div className="rounded-md bg-red-500/10 p-4 text-sm text-red-600 dark:text-red-400">
-              Something went wrong. Please try again later.
-            </div>
-          )}
+            {submitStatus === "error" && (
+              <motion.div
+                initial={prefersReducedMotion ? undefined : { opacity: 0, y: -10 }}
+                animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                exit={prefersReducedMotion ? undefined : { opacity: 0, y: -10 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
+                className="rounded-md bg-red-500/10 p-4 text-sm text-red-600 dark:text-red-400"
+              >
+                Something went wrong. Please try again later.
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <Button type="submit" size="lg" disabled={isSubmitting}>
             {isSubmitting ? "Sending..." : "Send Message"}
           </Button>
         </form>
       </Form>
-    </div>
+    </motion.div>
   )
 }
 
