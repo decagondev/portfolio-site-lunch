@@ -38,6 +38,9 @@ export const appConfig = {
   navItems: [
     { path: "/", label: "Home" },
     { path: "/about", label: "About" },
+    { path: "/projects", label: "Projects" },
+    { path: "/resume", label: "Resume" },
+    { path: "/contact", label: "Contact" },
   ] as const satisfies ReadonlyArray<NavItem>,
 
   // Social Links
