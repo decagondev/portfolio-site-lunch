@@ -1,38 +1,37 @@
 import { SEO } from "@/components/seo/SEO"
+import { SkillsGrid } from "@/components/sections/SkillsGrid"
+import { ExperienceTimeline } from "@/components/sections/ExperienceTimeline"
+import { TestimonialsTeaser } from "@/components/sections/TestimonialsTeaser"
+import { skills } from "@/data/skills"
+import { experience } from "@/data/experience"
+import { testimonials } from "@/data/testimonials"
+import { appConfig } from "@/config/app.config"
 
 /**
  * About page component
+ * Displays bio, skills, experience timeline, and testimonials
  */
 export function AboutPage() {
   return (
     <>
       <SEO
-        title="About - React TypeScript Vite Starter"
-        description="Learn more about this starter template"
+        title={`About - ${appConfig.name}`}
+        description={`Learn more about ${appConfig.name}. ${appConfig.bio}`}
+        keywords="about, developer, experience, skills, portfolio"
       />
       <div className="container mx-auto px-4 py-16">
-        <div className="mx-auto max-w-3xl">
-          <h1 className="mb-6 text-4xl font-bold">About</h1>
-          <div className="prose prose-neutral dark:prose-invert max-w-none">
-            <p className="text-lg text-muted-foreground">
-              This is a modern starter template for building React applications
-              with TypeScript, Vite, ShadCN UI, and Tailwind CSS 4.
-            </p>
-            <p className="text-muted-foreground">
-              The template follows SOLID principles and is designed to be
-              modular, extensible, and easy to customize. It includes:
-            </p>
-            <ul className="list-disc pl-6 text-muted-foreground">
-              <li>Dark mode support with theme toggle</li>
-              <li>Responsive navigation with sticky navbar and mobile hamburger menu</li>
-              <li>SEO component for dynamic metadata</li>
-              <li>Footer with legal pages</li>
-              <li>React Router DOM for routing</li>
-              <li>Netlify deployment ready</li>
-            </ul>
+        <div className="mx-auto max-w-4xl">
+          {/* Bio Section */}
+          <div className="mb-12">
+            <h1 className="mb-6 text-4xl font-bold">About Me</h1>
+            <p className="text-lg text-muted-foreground">{appConfig.bio}</p>
           </div>
         </div>
       </div>
+
+      <SkillsGrid skills={skills} />
+      <ExperienceTimeline experience={experience} />
+      <TestimonialsTeaser testimonials={testimonials} maxItems={2} />
     </>
   )
 }
