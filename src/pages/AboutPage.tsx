@@ -24,8 +24,7 @@ export function AboutPage() {
             </p>
             <ul className="list-disc pl-6 text-muted-foreground">
               <li>Dark mode support with theme toggle</li>
-              <li>Responsive navigation with sticky navbar</li>
-              <li>Collapsible sidebar for mobile</li>
+              <li>Responsive navigation with sticky navbar and mobile hamburger menu</li>
               <li>SEO component for dynamic metadata</li>
               <li>Footer with legal pages</li>
               <li>React Router DOM for routing</li>
