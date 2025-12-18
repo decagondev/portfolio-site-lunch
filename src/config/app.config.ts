@@ -32,7 +32,7 @@ export const appConfig = {
   companyName: "Tom Tarpey",
   description:
     "Portfolio of Tom Tarpey - Principal AI Engineer specializing in Large Language Models, AI/ML infrastructure, and full-stack development. Expert in LLM fine-tuning, RAG systems, and agentic workflows.",
-  baseUrl: import.meta.env.VITE_BASE_URL || "https://yourdomain.com",
+  baseUrl: import.meta.env.VITE_BASE_URL || (typeof window !== "undefined" ? window.location.origin : ""),
 
   // Navigation
   navItems: [
@@ -48,7 +48,7 @@ export const appConfig = {
     github: "https://github.com/decagondev",
     linkedin: "https://linkedin.com/in/tom-tarpey-38594455",
     email: "mailto:tomtarpeydev@gmail.com",
-  } as const satisfies SocialLinks,
+  } satisfies SocialLinks,
 
   // Footer
   footer: {

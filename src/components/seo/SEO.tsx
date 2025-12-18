@@ -17,18 +17,19 @@ export interface SEOProps {
  * Follows Single Responsibility Principle - only handles SEO metadata
  */
 export function SEO({
-  title = "React TypeScript Vite Starter",
-  description = "A modern starter template for React applications with TypeScript, Vite, ShadCN UI, and Tailwind CSS 4",
-  keywords = "react, typescript, vite, shadcn, tailwind",
-  author = "Your Company",
+  title = "Tom Tarpey - Principal AI Engineer | Portfolio",
+  description = "Portfolio of Tom Tarpey - Principal AI Engineer specializing in Large Language Models, AI/ML infrastructure, and full-stack development. Expert in LLM fine-tuning, RAG systems, and agentic workflows.",
+  keywords = "AI engineer, LLM, machine learning, principal engineer, AI consultant, LLM fine-tuning, RAG, agentic workflows, full-stack developer, React, TypeScript",
+  author = "Tom Tarpey",
   ogImage = "/og-image.png",
   ogType = "website",
   twitterCard = "summary_large_image",
   canonical,
 }: SEOProps) {
   const location = useLocation()
-  const baseUrl = import.meta.env.VITE_BASE_URL || window.location.origin
-  const fullCanonical = canonical || `${baseUrl}${location.pathname}`
+  // Use environment variable or detect from window (works in browser)
+  const baseUrl = import.meta.env.VITE_BASE_URL || (typeof window !== "undefined" ? window.location.origin : "")
+  const fullCanonical = canonical || (baseUrl ? `${baseUrl}${location.pathname}` : location.pathname)
 
   useEffect(() => {
     // Update title
@@ -36,6 +37,7 @@ export function SEO({
 
     // Update or create meta tags
     const updateMetaTag = (name: string, content: string, attribute: string = "name") => {
+      if (!content) return // Skip if content is empty
       let element = document.querySelector(`meta[${attribute}="${name}"]`)
       if (!element) {
         element = document.createElement("meta")
@@ -46,22 +48,22 @@ export function SEO({
     }
 
     // Standard meta tags
-    updateMetaTag("description", description)
-    updateMetaTag("keywords", keywords)
-    updateMetaTag("author", author)
+    if (description) updateMetaTag("description", description)
+    if (keywords) updateMetaTag("keywords", keywords)
+    if (author) updateMetaTag("author", author)
 
     // Open Graph tags
-    updateMetaTag("og:title", title, "property")
-    updateMetaTag("og:description", description, "property")
-    updateMetaTag("og:image", ogImage, "property")
-    updateMetaTag("og:type", ogType, "property")
-    updateMetaTag("og:url", fullCanonical, "property")
+    if (title) updateMetaTag("og:title", title, "property")
+    if (description) updateMetaTag("og:description", description, "property")
+    if (ogImage) updateMetaTag("og:image", ogImage, "property")
+    if (ogType) updateMetaTag("og:type", ogType, "property")
+    if (fullCanonical) updateMetaTag("og:url", fullCanonical, "property")
 
     // Twitter Card tags
-    updateMetaTag("twitter:card", twitterCard)
-    updateMetaTag("twitter:title", title)
-    updateMetaTag("twitter:description", description)
-    updateMetaTag("twitter:image", ogImage)
+    if (twitterCard) updateMetaTag("twitter:card", twitterCard)
+    if (title) updateMetaTag("twitter:title", title)
+    if (description) updateMetaTag("twitter:description", description)
+    if (ogImage) updateMetaTag("twitter:image", ogImage)
 
     // Canonical link
     let canonicalLink = document.querySelector('link[rel="canonical"]')

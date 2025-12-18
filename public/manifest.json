@@ -1,5 +1,11 @@
 {
- "name": "App",
+ "name": "Tom Tarpey - Portfolio",
+ "short_name": "Tom Tarpey",
+ "description": "Portfolio of Tom Tarpey - Principal AI Engineer",
+ "start_url": "/",
+ "display": "standalone",
+ "background_color": "#0a0a0f",
+ "theme_color": "#0a0a0f",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",

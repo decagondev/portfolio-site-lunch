@@ -1,6 +1,6 @@
 import { SEO } from "@/components/seo/SEO"
 import { ContactForm } from "@/components/shared/ContactForm"
-import { appConfig } from "@/config/app.config"
+import { appConfig, type SocialLinks } from "@/config/app.config"
 import { Mail, Github, Linkedin, Twitter } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -78,14 +78,14 @@ export function ContactPage() {
                     </a>
                   </Button>
                 )}
-                {appConfig.socialLinks.twitter && (
+                {(appConfig.socialLinks as SocialLinks).twitter && (
                   <Button
                     asChild
                     variant="outline"
                     className="w-full justify-start"
                   >
                     <a
-                      href={appConfig.socialLinks.twitter}
+                      href={(appConfig.socialLinks as SocialLinks).twitter!}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

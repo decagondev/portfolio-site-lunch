@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense, lazy } from "react"
+import { useMemo, Suspense, lazy } from "react"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion"
@@ -23,36 +23,25 @@ export function GitHubContributions({
   className,
 }: GitHubContributionsProps) {
   const prefersReducedMotion = useReducedMotion()
-  const [gitHubUsername, setGitHubUsername] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [hasError, setHasError] = useState(false)
-
-  useEffect(() => {
-    // Extract username from GitHub URL or use provided username
-    let extractedUsername: string | null = null
-
+  
+  // Extract username using useMemo to avoid setState in effect
+  const gitHubUsername = useMemo(() => {
     if (username) {
-      extractedUsername = username
-    } else if (appConfig.socialLinks.github) {
+      return username
+    }
+    if (appConfig.socialLinks.github) {
       // Extract username from GitHub URL (e.g., https://github.com/username)
       const match = appConfig.socialLinks.github.match(
-        /github\.com\/([^\/\?]+)/
+        /github\.com\/([^/?]+)/
       )
       if (match && match[1]) {
-        extractedUsername = match[1]
+        return match[1]
       }
     }
-
-    if (extractedUsername) {
-      setGitHubUsername(extractedUsername)
-      setIsLoading(false)
-    } else {
-      setHasError(true)
-      setIsLoading(false)
-    }
+    return null
   }, [username])
 
-  if (hasError || !gitHubUsername) {
+  if (!gitHubUsername) {
     return null
   }
 
@@ -67,7 +56,7 @@ export function GitHubContributions({
         <h2 className="mb-8 text-3xl font-bold">GitHub Contributions</h2>
 
         <div className="rounded-lg border bg-card p-6 shadow-sm transition-all duration-200 hover:shadow-md">
-          {isLoading ? (
+          {!gitHubUsername ? (
             <div className="flex items-center justify-center py-12">
               <p className="text-muted-foreground">Loading contributions...</p>
             </div>
@@ -132,4 +121,5 @@ export function GitHubContributions({
     </section>
   )
 }
+
 
