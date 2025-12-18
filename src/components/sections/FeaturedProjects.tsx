@@ -2,6 +2,7 @@ import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 import { type Project } from "@/data/projects"
 import { Button } from "@/components/ui/button"
+import { ProjectCard } from "@/components/shared/ProjectCard"
 import { cn } from "@/lib/utils"
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion"
 
@@ -47,43 +48,14 @@ export function FeaturedProjects({
               whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: index * 0.1 }}
-              whileHover={prefersReducedMotion ? {} : { y: -4 }}
-              className="group rounded-lg border bg-card shadow-sm transition-all duration-200 hover:shadow-lg hover:border-primary/30"
             >
-              {project.image && (
-                <div className="aspect-video overflow-hidden rounded-t-lg">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="h-full w-full object-cover transition-transform group-hover:scale-105"
-                    loading="lazy"
-                  />
-                </div>
-              )}
-              <div className="p-6">
-                <h3 className="mb-2 text-xl font-semibold">{project.title}</h3>
-                <p className="mb-4 text-sm text-muted-foreground">
-                  {project.description}
-                </p>
-                <div className="mb-4 flex flex-wrap gap-2">
-                  {project.tech.slice(0, 3).map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-md bg-muted px-2 py-1 text-xs transition-colors hover:bg-accent/20 hover:text-accent"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.tech.length > 3 && (
-                    <span className="rounded-md bg-muted px-2 py-1 text-xs">
-                      +{project.tech.length - 3}
-                    </span>
-                  )}
-                </div>
-                <Button asChild variant="outline" size="sm" className="w-full">
-                  <Link to={`/projects#${project.id}`}>View Details</Link>
-                </Button>
-              </div>
+              <ProjectCard
+                project={project}
+                onClick={() => {
+                  // Navigate to project detail
+                  window.location.href = `/projects#${project.id}`
+                }}
+              />
             </motion.div>
           ))}
         </div>

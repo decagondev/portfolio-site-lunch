@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { useLocation } from "react-router-dom"
+import { sanitizeMetaContent, sanitizeMetaName, sanitizeUrl } from "@/lib/security/sanitize"
 
 export interface SEOProps {
   title?: string
@@ -32,19 +33,24 @@ export function SEO({
   const fullCanonical = canonical || (baseUrl ? `${baseUrl}${location.pathname}` : location.pathname)
 
   useEffect(() => {
-    // Update title
-    document.title = title
+    // Sanitize and update title
+    const sanitizedTitle = sanitizeMetaContent(title)
+    document.title = sanitizedTitle
 
     // Update or create meta tags
     const updateMetaTag = (name: string, content: string, attribute: string = "name") => {
       if (!content) return // Skip if content is empty
-      let element = document.querySelector(`meta[${attribute}="${name}"]`)
+      const sanitizedName = sanitizeMetaName(name)
+      const sanitizedContent = sanitizeMetaContent(content)
+      if (!sanitizedName || !sanitizedContent) return // Skip if sanitization removed everything
+      
+      let element = document.querySelector(`meta[${attribute}="${sanitizedName}"]`)
       if (!element) {
         element = document.createElement("meta")
-        element.setAttribute(attribute, name)
+        element.setAttribute(attribute, sanitizedName)
         document.head.appendChild(element)
       }
-      element.setAttribute("content", content)
+      element.setAttribute("content", sanitizedContent)
     }
 
     // Standard meta tags
@@ -66,14 +72,17 @@ export function SEO({
     if (ogImage) updateMetaTag("twitter:image", ogImage)
 
     // Canonical link
-    let canonicalLink = document.querySelector('link[rel="canonical"]')
-    if (!canonicalLink) {
-      canonicalLink = document.createElement("link")
-      canonicalLink.setAttribute("rel", "canonical")
-      document.head.appendChild(canonicalLink)
+    const sanitizedCanonical = sanitizeUrl(fullCanonical)
+    if (sanitizedCanonical) {
+      let canonicalLink = document.querySelector('link[rel="canonical"]')
+      if (!canonicalLink) {
+        canonicalLink = document.createElement("link")
+        canonicalLink.setAttribute("rel", "canonical")
+        document.head.appendChild(canonicalLink)
+      }
+      canonicalLink.setAttribute("href", sanitizedCanonical)
     }
-    canonicalLink.setAttribute("href", fullCanonical)
-  }, [title, description, keywords, author, ogImage, ogType, twitterCard, fullCanonical, location.pathname])
+  }, [title, description, keywords, author, ogImage, ogType, twitterCard, canonical, baseUrl, location.pathname, fullCanonical])
 
   return null
 }

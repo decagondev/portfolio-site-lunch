@@ -3,6 +3,7 @@
  * Centralized configuration following Single Responsibility Principle
  * Easy to customize for different projects
  */
+import { validateBaseUrl } from "@/lib/security/validation"
 export interface NavItem {
   readonly path: string
   readonly label: string
@@ -32,7 +33,7 @@ export const appConfig = {
   companyName: "Tom Tarpey",
   description:
     "Portfolio of Tom Tarpey - Principal AI Engineer specializing in Large Language Models, AI/ML infrastructure, and full-stack development. Expert in LLM fine-tuning, RAG systems, and agentic workflows.",
-  baseUrl: import.meta.env.VITE_BASE_URL || (typeof window !== "undefined" ? window.location.origin : ""),
+  baseUrl: validateBaseUrl(import.meta.env.VITE_BASE_URL),
 
   // Navigation
   navItems: [

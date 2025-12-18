@@ -3,6 +3,8 @@ import { ContactForm } from "@/components/shared/ContactForm"
 import { appConfig, type SocialLinks } from "@/config/app.config"
 import { Mail, Github, Linkedin, Twitter } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { validateEmail } from "@/lib/security/validation"
+import { sanitizeUrl } from "@/lib/security/sanitize"
 
 /**
  * Contact page component with form and social links
@@ -34,18 +36,27 @@ export function ContactPage() {
             <div>
               <h2 className="mb-6 text-2xl font-semibold">Connect</h2>
               <div className="space-y-4">
-                {appConfig.socialLinks.email && (
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="w-full justify-start"
-                  >
-                    <a href={appConfig.socialLinks.email}>
-                      <Mail className="mr-2 h-4 w-4" />
-                      Email
-                    </a>
-                  </Button>
-                )}
+                {appConfig.socialLinks.email && (() => {
+                  // Extract email from mailto: link or use as-is
+                  const emailMatch = appConfig.socialLinks.email.replace(/^mailto:/i, "")
+                  const validatedEmail = validateEmail(emailMatch)
+                  const safeEmailLink = validatedEmail 
+                    ? sanitizeUrl(`mailto:${validatedEmail}`)
+                    : null
+                  
+                  return safeEmailLink ? (
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="w-full justify-start"
+                    >
+                      <a href={safeEmailLink}>
+                        <Mail className="mr-2 h-4 w-4" />
+                        Email
+                      </a>
+                    </Button>
+                  ) : null
+                })()}
                 {appConfig.socialLinks.github && (
                   <Button
                     asChild

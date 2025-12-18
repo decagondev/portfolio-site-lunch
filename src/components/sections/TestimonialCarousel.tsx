@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -27,22 +27,20 @@ export function TestimonialCarousel({
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
 
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+  }, [testimonials.length])
+
   // Auto-rotation effect
   useEffect(() => {
     if (!autoRotate || isPaused || prefersReducedMotion || testimonials.length <= 1) {
       return
     }
 
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length)
-    }, autoRotateInterval)
+    const interval = setInterval(goToNext, autoRotateInterval)
 
     return () => clearInterval(interval)
-  }, [autoRotate, autoRotateInterval, isPaused, prefersReducedMotion, testimonials.length])
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length)
-  }
+  }, [autoRotate, autoRotateInterval, isPaused, prefersReducedMotion, testimonials.length, goToNext])
 
   const goToPrevious = () => {
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
@@ -58,11 +56,23 @@ export function TestimonialCarousel({
 
   const currentTestimonial = testimonials[currentIndex]
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === " " || e.key === "Enter") {
+      e.preventDefault()
+      setIsPaused((prev) => !prev)
+    }
+  }
+
   return (
     <section
       className={cn("container mx-auto px-4 py-12", className)}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="region"
+      aria-label="Testimonials carousel"
+      aria-live="polite"
     >
       <motion.div
         initial={prefersReducedMotion ? undefined : { opacity: 0, y: 20 }}
@@ -136,9 +146,9 @@ export function TestimonialCarousel({
           {/* Dot Indicators */}
           {testimonials.length > 1 && (
             <div className="mt-6 flex justify-center gap-2">
-              {testimonials.map((_, index) => (
+              {testimonials.map((testimonial, index) => (
                 <button
-                  key={index}
+                  key={testimonial.id}
                   onClick={() => goToIndex(index)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {

@@ -77,8 +77,8 @@ export function ProjectDetailModal({
             <div>
               <h3 className="mb-2 text-lg font-semibold">Challenges</h3>
               <ul className="list-disc space-y-2 pl-5 text-muted-foreground">
-                {project.challenges.map((challenge, idx) => (
-                  <li key={idx}>{challenge}</li>
+                {project.challenges.map((challenge) => (
+                  <li key={`challenge-${challenge.slice(0, 20)}`}>{challenge}</li>
                 ))}
               </ul>
             </div>
@@ -89,8 +89,8 @@ export function ProjectDetailModal({
             <div>
               <h3 className="mb-2 text-lg font-semibold">Solutions</h3>
               <ul className="list-disc space-y-2 pl-5 text-muted-foreground">
-                {project.solutions.map((solution, idx) => (
-                  <li key={idx}>{solution}</li>
+                {project.solutions.map((solution) => (
+                  <li key={`solution-${solution.slice(0, 20)}`}>{solution}</li>
                 ))}
               </ul>
             </div>
@@ -101,8 +101,8 @@ export function ProjectDetailModal({
             <div>
               <h3 className="mb-2 text-lg font-semibold">Outcomes</h3>
               <ul className="list-disc space-y-2 pl-5 text-muted-foreground">
-                {project.outcomes.map((outcome, idx) => (
-                  <li key={idx}>{outcome}</li>
+                {project.outcomes.map((outcome) => (
+                  <li key={`outcome-${outcome.slice(0, 20)}`}>{outcome}</li>
                 ))}
               </ul>
             </div>

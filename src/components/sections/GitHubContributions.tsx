@@ -3,6 +3,8 @@ import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion"
 import { appConfig } from "@/config/app.config"
+import { validateGitHubUsername } from "@/lib/security/validation"
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary"
 
 // Lazy load the GitHub calendar component to reduce initial bundle size
 const GitHubCalendar = lazy(() => 
@@ -24,10 +26,12 @@ export function GitHubContributions({
 }: GitHubContributionsProps) {
   const prefersReducedMotion = useReducedMotion()
   
-  // Extract username using useMemo to avoid setState in effect
+  // Extract and validate username using useMemo to avoid setState in effect
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const gitHubUsername = useMemo(() => {
     if (username) {
-      return username
+      // Validate provided username
+      return validateGitHubUsername(username)
     }
     if (appConfig.socialLinks.github) {
       // Extract username from GitHub URL (e.g., https://github.com/username)
@@ -35,7 +39,8 @@ export function GitHubContributions({
         /github\.com\/([^/?]+)/
       )
       if (match && match[1]) {
-        return match[1]
+        // Validate extracted username
+        return validateGitHubUsername(match[1])
       }
     }
     return null
@@ -61,14 +66,26 @@ export function GitHubContributions({
               <p className="text-muted-foreground">Loading contributions...</p>
             </div>
           ) : (
-            <Suspense
+            <ErrorBoundary
               fallback={
                 <div className="flex items-center justify-center py-12">
-                  <p className="text-muted-foreground">Loading calendar...</p>
+                  <p className="text-muted-foreground">Failed to load GitHub calendar. Please try again later.</p>
                 </div>
               }
             >
-              <div className="github-calendar-wrapper">
+              <Suspense
+                fallback={
+                  <div className="flex items-center justify-center py-12">
+                    <p className="text-muted-foreground">Loading calendar...</p>
+                  </div>
+                }
+              >
+              <div
+                className="flex justify-center overflow-x-auto [&_svg]:max-w-full [&_svg]:h-auto [&_svg]:[data-theme=light]:invert [&_svg]:[data-theme=light]:hue-rotate-180"
+                role="img"
+                aria-label={`GitHub contribution calendar for ${gitHubUsername}`}
+                aria-describedby="github-calendar-description"
+              >
                 <GitHubCalendar
                   username={gitHubUsername}
                   colorScheme="dark"
@@ -77,7 +94,11 @@ export function GitHubContributions({
                   fontSize={14}
                 />
               </div>
-            </Suspense>
+              <p id="github-calendar-description" className="sr-only">
+                Visual representation of GitHub contributions over the past year. Each square represents a day, with darker colors indicating more contributions.
+              </p>
+              </Suspense>
+            </ErrorBoundary>
           )}
         </div>
 
@@ -93,31 +114,6 @@ export function GitHubContributions({
           </a>
         </p>
       </motion.div>
-
-      <style>{`
-        .github-calendar-wrapper {
-          display: flex;
-          justify-content: center;
-          overflow-x: auto;
-        }
-        
-        .github-calendar-wrapper svg {
-          max-width: 100%;
-          height: auto;
-        }
-        
-        /* Dark mode adjustments */
-        @media (prefers-color-scheme: light) {
-          .github-calendar-wrapper {
-            filter: invert(1) hue-rotate(180deg);
-          }
-        }
-        
-        /* Ensure calendar respects theme */
-        [data-theme="light"] .github-calendar-wrapper {
-          filter: invert(1) hue-rotate(180deg);
-        }
-      `}</style>
     </section>
   )
 }

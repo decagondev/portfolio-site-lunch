@@ -1,3 +1,4 @@
+import { memo } from "react"
 import { motion } from "framer-motion"
 import { type Project } from "@/data/projects"
 import { cn } from "@/lib/utils"
@@ -12,8 +13,9 @@ export interface ProjectCardProps {
 /**
  * Project card component displaying project information
  * Follows Single Responsibility Principle - only handles project card display
+ * Memoized to prevent unnecessary re-renders
  */
-export function ProjectCard({ project, onClick, className }: ProjectCardProps) {
+export const ProjectCard = memo(function ProjectCard({ project, onClick, className }: ProjectCardProps) {
   const prefersReducedMotion = useReducedMotion()
 
   return (
@@ -33,7 +35,7 @@ export function ProjectCard({ project, onClick, className }: ProjectCardProps) {
         <div className="aspect-video overflow-hidden rounded-t-lg">
           <img
             src={project.image}
-            alt={project.title}
+            alt={`${project.title} - ${project.description.slice(0, 60)}${project.description.length > 60 ? "..." : ""}`}
             className="h-full w-full object-cover transition-transform group-hover:scale-105"
             loading="lazy"
           />
@@ -86,5 +88,5 @@ export function ProjectCard({ project, onClick, className }: ProjectCardProps) {
       </div>
     </motion.div>
   )
-}
+})
 

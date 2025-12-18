@@ -10,6 +10,7 @@ import { PrivacyPolicyPage } from "@/pages/PrivacyPolicyPage"
 import { TermsOfServicePage } from "@/pages/TermsOfServicePage"
 import { NotFoundPage } from "@/pages/NotFoundPage"
 import { appConfig } from "@/config/app.config"
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary"
 
 /**
  * Main App component
@@ -17,22 +18,26 @@ import { appConfig } from "@/config/app.config"
  */
 function App() {
   return (
-    <ThemeProvider>
-      <BrowserRouter>
-        <Layout footerConfig={appConfig.footer}>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/resume" element={<ResumePage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-            <Route path="/terms-of-service" element={<TermsOfServicePage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </Layout>
-      </BrowserRouter>
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider>
+        <BrowserRouter>
+          <Layout footerConfig={appConfig.footer}>
+            <ErrorBoundary>
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/projects" element={<ProjectsPage />} />
+                <Route path="/resume" element={<ResumePage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </ErrorBoundary>
+          </Layout>
+        </BrowserRouter>
+      </ThemeProvider>
+    </ErrorBoundary>
   )
 }
 

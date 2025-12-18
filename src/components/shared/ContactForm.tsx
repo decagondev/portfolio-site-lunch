@@ -19,6 +19,7 @@ import {
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion"
+import { logInfo, logError } from "@/lib/security/logger"
 
 export interface ContactFormProps {
   onSubmit?: (data: ContactFormData) => Promise<void> | void
@@ -55,14 +56,13 @@ export function ContactForm({ onSubmit, className }: ContactFormProps) {
         await onSubmit(data)
       } else {
         // Default: Prepare for Netlify Forms integration
-        // For now, just log the data
-        console.log("Form data:", data)
         // In production, this would POST to Netlify Forms endpoint
+        logInfo("Form submission prepared", { subject: data.subject })
       }
       setSubmitStatus("success")
       form.reset()
     } catch (error) {
-      console.error("Form submission error:", error)
+      logError("Form submission error", error, { formData: { subject: data.subject } })
       setSubmitStatus("error")
     } finally {
       setIsSubmitting(false)
